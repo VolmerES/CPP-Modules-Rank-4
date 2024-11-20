@@ -6,12 +6,19 @@
 /*   By: jdelorme <jdelorme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:49:55 by jdelorme          #+#    #+#             */
-/*   Updated: 2024/11/20 17:24:56 by jdelorme         ###   ########.fr       */
+/*   Updated: 2024/11/20 19:07:37 by jdelorme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "phonebook.hpp"
-/*		APRATADO PHONEBOOK		*/
+
+bool	ft_isnum(std::string str) {
+	for (size_t cur = 0; cur < str.length(); cur++)
+		if ((str[cur] < '0' || str[cur] > '9') && str[cur] != '-')
+			return false;
+	return true;
+}
+/*		APARATADO PHONEBOOK		*/
 
 //Constructor
 PhoneBook::PhoneBook(void){
@@ -33,8 +40,9 @@ void	PhoneBook::ft_list_contacts(void) const{
 	int	i = 0;
 	std::cout << "\tIndex\t First Name\t Second Name\t Nickname\t Phone Number\n";
 	while (i < this->_size){
-		std::cout << "\t" << this->_contact[i].getFullname(10) << "\t" << this->_contact[i].getScndname(10)
+		std::cout << "\t" << i << "\t" << this->_contact[i].getFullname(10) << "\t" << this->_contact[i].getScndname(10)
 		<< "\t" << this->_contact[i].getNickname(10) << "\t" << this->_contact[i].getPhoneNumber(10) << std::endl;
+		i++;
 	}
 }
 
@@ -79,7 +87,7 @@ void	Contact::setValue(std::string full_name, std::string scnd_name, std::string
 }
 
 std::string	Contact::getFullname(size_t size) const{
-	if (this->_fullname.length() < size){
+	if (this->_fullname.length() > size){
 		std::string full_name = this->_fullname.substr(0, size - 1);
 		full_name.push_back('.');
 		return full_name;
@@ -88,7 +96,7 @@ std::string	Contact::getFullname(size_t size) const{
 }
 
 std::string	Contact::getScndname(size_t size) const{
-	if (this->_scndname.length() < size){
+	if (this->_scndname.length() > size){
 		std::string scnd_name = this->_scndname.substr(0, size - 1);
 		scnd_name.push_back('.');
 		return (scnd_name);
@@ -98,7 +106,7 @@ std::string	Contact::getScndname(size_t size) const{
 
 std::string	Contact::getNickname(size_t size) const{
 	if (this->_nickname.length() > size){
-		std::string nickname = this->_nickname.substr(0, size -1);
+		std::string nickname = this->_nickname.substr(0, size - 1);
 		nickname.push_back('.');
 		return (nickname);
 	}
@@ -137,34 +145,31 @@ int	main()
 	PhoneBook	PhoneInstance;
 	Contact		ContactInstance;
 	std::string input;
-	bool		signal (true);
 
 	std::cout << "Bienvenido a tu agenda de contactos. Opciones disponibles ADD, SEARCH, EXIT" << std::endl;
-	while (signal == true)
+	while (true)
 	{
-		std::cout << "Ingrese una opción:";
+		std::cout << "Ingrese una opción: ";
 		std::getline(std::cin, input);
 		if (input.compare("ADD") == 0)
-		{
-			std::cout << "AÑADIENDO..." << std::endl;
 			PhoneInstance.ft_add_contact();
-		}
 		else if (input.compare("SEARCH") == 0)
 		{
-			std::cout << "BUSCANDO..." << std::endl;
+			std::string index;
 			PhoneInstance.ft_list_contacts();
-    		std::getline(std::cin, input);
-    		int index = std::atoi(input.c_str());
-			PhoneInstance.ft_display_contact(index);
+    		std::cout << "\tIngreser un índice: ";
+			std::getline(std::cin, index);
+			if (ft_isnum(index))
+				PhoneInstance.ft_display_contact(atoi(input.c_str()));
+			else
+				std::cout << "\tInvalid index" << std::endl;
 			
 		}
-		else if (input.compare("EXIT") == 0)
-		{
-			std::cout << "SALIENDO..." << std::endl;
-			signal = false;
-		}
+		else if (input.empty() || input.compare("EXIT") == 0)
+			break;
 		else
 			std::cout << "¡OPCIÓN INVALIDA!" << std::endl;
 	}
+	std::cout << std::endl;
 	return (0);	
 }

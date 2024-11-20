@@ -6,7 +6,7 @@
 /*   By: jdelorme <jdelorme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:49:53 by jdelorme          #+#    #+#             */
-/*   Updated: 2024/11/20 17:22:56 by jdelorme         ###   ########.fr       */
+/*   Updated: 2024/11/20 19:07:13 by jdelorme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,6 @@ public:
 	void	ft_list_contacts(void) const;
 	void	ft_display_contact(size_t index) const;
 };
+
+bool	ft_isnum(std::string str);
 #endif
