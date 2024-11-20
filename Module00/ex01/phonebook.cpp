@@ -6,11 +6,23 @@
 /*   By: jdelorme <jdelorme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:49:55 by jdelorme          #+#    #+#             */
-/*   Updated: 2024/11/14 15:02:29 by jdelorme         ###   ########.fr       */
+/*   Updated: 2024/11/20 13:08:32 by jdelorme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "phonebook.hpp"
+
+void	Contact::setValue(std::string full_name, std::string scnd_name, std::string nickname
+		, std::string ph_number, std::string dark_secret)
+{
+	this->_fullname = full_name;
+	this->_scndname = scnd_name;
+	this->_nickname = nickname;
+	this->_phnumber = ph_number;
+	this->_dsecret = dark_secret;
+}
+
+
 
 int	main()
 {
