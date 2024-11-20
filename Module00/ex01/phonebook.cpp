@@ -6,13 +6,65 @@
 /*   By: jdelorme <jdelorme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:49:55 by jdelorme          #+#    #+#             */
-/*   Updated: 2024/11/20 15:54:22 by jdelorme         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:24:56 by jdelorme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "phonebook.hpp"
 /*		APRATADO PHONEBOOK		*/
 
+//Constructor
+PhoneBook::PhoneBook(void){
+	this->_size = 0;
+	this->_contact = new Contact[MAX_CONTACTS];
+}
+//Destructor
+PhoneBook::~PhoneBook(void){
+	delete[] this->_contact;
+}
+
+//geter varable sizze
+std::size_t PhoneBook::ft_get_size(void) const{
+	return (this->_size);
+}
+
+//listar contactos
+void	PhoneBook::ft_list_contacts(void) const{
+	int	i = 0;
+	std::cout << "\tIndex\t First Name\t Second Name\t Nickname\t Phone Number\n";
+	while (i < this->_size){
+		std::cout << "\t" << this->_contact[i].getFullname(10) << "\t" << this->_contact[i].getScndname(10)
+		<< "\t" << this->_contact[i].getNickname(10) << "\t" << this->_contact[i].getPhoneNumber(10) << std::endl;
+	}
+}
+
+//listar un contacto
+void	PhoneBook::ft_display_contact(size_t index) const{
+	if (index <= 8 && index >= 0)
+		this->_contact[index].ft_showInfo();
+	else
+		std::cout << "Invalid index" << std::endl;
+}
+
+//Añadir contactos
+void	PhoneBook::ft_add_contact(void){
+	std::string firstname, scndname, nickname, phonenumber, darkestsecret;
+	std::cout << "First Name:\t"; getline(std::cin, firstname);
+	std::cout << "Second Name:\t"; getline(std::cin, scndname);
+	std::cout << "Nickname:\t"; getline(std::cin, nickname);
+	std::cout << "Phone Number:\t"; getline(std::cin, phonenumber);
+	std::cout << "Darkest Secret:\t"; getline(std::cin, darkestsecret);
+
+	if (this->_size > MAX_CONTACTS){
+		for (int i = 0; i <= MAX_CONTACTS, i++;)
+			this->_contact[i] = this->_contact[i + 1];
+		this->_size--;
+	}
+	else{
+		this->_contact[this->_size].setValue(firstname, scndname, nickname, phonenumber, darkestsecret);
+		this->_size++;
+	}
+}
 
 /*		APARTADO DE CREACIÓN DEL CONTACTO	*/
 
@@ -91,16 +143,20 @@ int	main()
 	while (signal == true)
 	{
 		std::cout << "Ingrese una opción:";
-		std::cin >> input;
-		std::cout << input << std::endl;
+		std::getline(std::cin, input);
 		if (input.compare("ADD") == 0)
 		{
 			std::cout << "AÑADIENDO..." << std::endl;
-			//funcion de añadir contacto
+			PhoneInstance.ft_add_contact();
 		}
 		else if (input.compare("SEARCH") == 0)
 		{
 			std::cout << "BUSCANDO..." << std::endl;
+			PhoneInstance.ft_list_contacts();
+    		std::getline(std::cin, input);
+    		int index = std::atoi(input.c_str());
+			PhoneInstance.ft_display_contact(index);
+			
 		}
 		else if (input.compare("EXIT") == 0)
 		{
