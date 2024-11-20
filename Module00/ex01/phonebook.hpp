@@ -6,26 +6,18 @@
 /*   By: jdelorme <jdelorme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:49:53 by jdelorme          #+#    #+#             */
-/*   Updated: 2024/11/20 15:55:03 by jdelorme         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:22:56 by jdelorme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONBOOK_HPP
-# define PHONEBOOK_HPP
+#ifndef PHONEBOOK_HPP
+#define PHONEBOOK_HPP
 
 #include <iostream>
 #include <string>
 
 #define MAX_CONTACTS 8
 
-class	PhoneBook{
-private:
-	size_t	_size;
-	Contact	*_contact;
-public:
-	PhoneBook(void);
-	~PhoneBook(void);
-};
 
 class	Contact{
 private:
@@ -35,8 +27,8 @@ private:
 	std::string _phnumber;
 	std::string _dsecret;
 public:
-	Contact(void);
-	~Contact(void);
+	Contact(void) {};
+	~Contact(void) {};
 	/*Función setter atributos privados del contacto*/
 	void	setValue(std::string full_name, std::string scnd_name, std::string nickname
 		, std::string ph_number, std::string dark_secret);
@@ -50,4 +42,16 @@ public:
 	void	ft_showInfo(void);
 };
 
+class	PhoneBook{
+private:
+	size_t	_size;
+	Contact  *_contact;
+public:
+	PhoneBook(void);
+	~PhoneBook(void);
+	void	ft_add_contact(void);
+	size_t	ft_get_size(void) const;
+	void	ft_list_contacts(void) const;
+	void	ft_display_contact(size_t index) const;
+};
 #endif
