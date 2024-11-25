@@ -6,7 +6,7 @@
 /*   By: jdelorme <jdelorme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 11:48:36 by jdelorme          #+#    #+#             */
-/*   Updated: 2024/11/22 16:09:33 by jdelorme         ###   ########.fr       */
+/*   Updated: 2024/11/25 14:25:29 by jdelorme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ZombieClass::setter(std::string name){
 
 ZombieClass*	zombieHorde(int N, std::string name){
 	ZombieClass* horde = new ZombieClass[N];
-	for (int i = 0; i <= N; i++){
+	for (int i = 0; i < N; i++){
 		horde[i].setter(name);
 	}
 	return horde;
@@ -71,10 +71,10 @@ void	logo(){
 			std::cout << std::endl;
 }
 
-int	main()
+int	main(int argc, char **argv)
 {
 	logo();
-	std::cout << "		\033[33mWelcome to Left 4 Dead zombie creator\033[0m" << std::endl;
+	std::cout << "	 	\033[33mWelcome to Left 4 Dead horde creator\033[0m" << std::endl;
 	std::cout << "\033[32m[1]. Creating Zombie type called Boomer...\033[0m" << std::endl;
 	ZombieClass Boomer = ZombieClass("Boomer");
 	Boomer.announce();
@@ -88,7 +88,7 @@ int	main()
 	randomChump("Witch");
 	
 	std::cout << "Calling a horde of zombies..." << std::endl;
-	ZombieClass* Horde = zombieHorde(8, "escamil");
+	ZombieClass* Horde = zombieHorde(8, "HordeZombie");
 	delete[] Horde;
 	return (0);
 }
