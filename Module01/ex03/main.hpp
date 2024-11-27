@@ -6,7 +6,7 @@
 /*   By: jdelorme <jdelorme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:50:09 by jdelorme          #+#    #+#             */
-/*   Updated: 2024/11/25 17:34:26 by jdelorme         ###   ########.fr       */
+/*   Updated: 2024/11/27 14:53:11 by jdelorme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@ class	Weapon{
 		std::string	_type;
 
 	public:
-		Weapon(void);
 		Weapon(std::string type);
 		~Weapon(void);
 		
-		std::string&	getType();
+		std::string&		getType();
 		void				setType(std::string param);
 	
 };
@@ -37,11 +36,10 @@ class	HumanA //: public Weapon
 {
 	private:
 		std::string	_nameA;
-		Weapon*	_weaponA;
+		Weapon&	_weaponA;
 		
 	public:
-		HumanA(void);
-		HumanA(std::string name, Weapon& Weapon);
+		HumanA(std::string name, Weapon& weapon);
 		~HumanA(void);
 
 		void	setWeapon(Weapon& Weapon);
@@ -57,11 +55,10 @@ class	HumanB{
 		Weapon* _weaponB;
 
 	public:
-		HumanB(void);
 		HumanB(std::string name);
 		~HumanB(void);
 
-		void	setWeapon(Weapon& Weapon);
+		void	setWeapon(Weapon& weapon);
 		void	attack(void) const;
 };
 

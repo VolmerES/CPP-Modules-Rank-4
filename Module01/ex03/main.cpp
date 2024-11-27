@@ -6,7 +6,7 @@
 /*   By: jdelorme <jdelorme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:49:17 by jdelorme          #+#    #+#             */
-/*   Updated: 2024/11/25 17:33:28 by jdelorme         ###   ########.fr       */
+/*   Updated: 2024/11/27 14:56:25 by jdelorme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 
 /*			CONSTRUCTORES DEFS*/
 
-Weapon::Weapon(std::string type) : _type("") {}
-HumanA::HumanA(std::string name, Weapon& Weapon) : Weapon() {}
-HumanB::HumanB(std::string name) : _type(type), _weaponB(&Weapon) {}
+Weapon::Weapon(std::string type) : _type(type) {}
+HumanA::HumanA(std::string name, Weapon& weapon) : _nameA(name), _weaponA(weapon) {}
+HumanB::HumanB(std::string name) : _nameB(name), _weaponB(NULL) {}
+
+/*			DESTRUCTRES DEFS	*/
+Weapon::~Weapon(void){}
+HumanA::~HumanA(void){}
+HumanB::~HumanB(void){}
 
 // ! -------------------------------------------------------------------------
 
@@ -35,14 +40,11 @@ void	Weapon::setType(std::string param){
 /*			HUMAN A CLASS			*/
 
 void	HumanA::setWeapon(Weapon& Weapon){
-	this->_weaponA = &Weapon;
+		_weaponA = Weapon;
 }
 
 void	HumanA::attack(void) const{
-	if (this->_weaponA)
-		std::cout << this->_nameA << ": attacks with their " << this->_weaponA->getType() << std::endl;
-	else
-		std::cout << "There is no weapon to attack" << std::endl;
+		std::cout << this->_nameA << ": attacks with their " << _weaponA.getType() << std::endl;
 		
 }
 
